@@ -46,6 +46,9 @@ if [ "$1" = 'catalina.sh' ]; then
 
 	#Fixing an hardcoded port on the connection string (bug fixed on development branch)
 	sed -i -e 's#5432#${jdbc.port}#g' $CATALINA_HOME/webapps/geonetwork/WEB-INF/config-db/postgres.xml
+	
+	#Fixing the xml API authorization
+	sed -i -e 's#param name="skipInfo" value="y"#param name="skipInfo" value="n"#g' $CATALINA_HOME/webapps/geonetwork/WEB-INF/config/config-service-xml-api.xml
 fi
 
 exec "$@"
